@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebServer.Controllers;
+﻿using WebServer.Controllers;
 
 namespace WebServer
 {
-    public interface AccountDAO
+    public interface IAccountDAO
     {
         List<Account> GetAccounts();
         Account GetAccountById(int id);
@@ -16,38 +11,38 @@ namespace WebServer
         void Delete(Account account);
     }
 
-    public class AccountController : AccountDAO
+    public class AccountDAO : IAccountDAO
     {
-        public string ConnectionString;
+        private readonly MyORM _orm;
         
-        public AccountController(string connectionString)
+        public AccountDAO(string connectionString)
         {
-            ConnectionString = connectionString;
+            _orm = new MyORM(connectionString);
         }
 
         public List<Account> GetAccounts()
         {
-            return new MyORM(ConnectionString).Select<Account>();
+            return _orm.Select<Account>();
         }
 
         public Account GetAccountById(int id)
         {
-            return new MyORM(ConnectionString).Select<Account>(id);
+            return _orm.Select<Account>(id);
         }
 
         public void Insert(Account account)
         {
-            new MyORM(ConnectionString).Insert(account);
+            _orm.Insert(account);
         }
 
         public void Update(Account account)
         {
-            new MyORM(ConnectionString).Update(account);
+            _orm.Update(account);
         }
 
         public void Delete(Account account)
         {
-            new MyORM(ConnectionString).Delete(account);
+            _orm.Delete(account);
         }
     }
 }

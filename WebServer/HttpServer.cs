@@ -28,7 +28,7 @@ namespace WebServer
                 return;
             }
 
-            _settings = JsonSerializer.Deserialize<ServerSettings>(File.ReadAllBytes("./settings.json"));
+            _settings = JsonSerializer.Deserialize<ServerSettings>(File.ReadAllBytes("settings.json"));
 
             _listener.Prefixes.Clear();
             _listener.Prefixes.Add($"http://localhost:{_settings.Port}/");
@@ -184,7 +184,7 @@ namespace WebServer
                 case "GET":
                     strParams = _httpContext.Request.Url
                                             .Segments
-                                            .Skip(2)
+                                            .Skip(3)
                                             .Select(s => s.Replace("/", ""))
                                             .ToList<object>();
                     break;
