@@ -1,0 +1,19 @@
+body {
+    font-family: "Century Gothic", sans-serif;
+    font-size: 14pt;
+    margin: 0px;
+}
+
+a {
+    color: midnightblue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: orange;
+}
+
+.footer-block {
+    height: 200px;
+    width: 100%;
+}

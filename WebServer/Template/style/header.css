@@ -1,0 +1,48 @@
+.top-nav {
+    display: flex;
+    background-color: midnightblue;
+    height: 40px;
+    width: auto;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 10pt;
+    letter-spacing: 0.1em;
+}
+
+.top-nav > a {
+    color: lightskyblue;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: steelblue;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.top-nav > a:hover {
+    color: white;
+}
+
+.header {
+    display: flex;
+    height: 80px;
+    width: auto;
+    justify-content: space-around;
+}
+
+.header-part {
+    display: inline-flex;
+    height: auto;
+    width: 40%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo-div {
+    display: inline-flex;
+    height: auto;
+    width: 20%;
+    color: white;
+    background-color: midnightblue;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
