@@ -91,9 +91,9 @@ namespace WebServer
             return ExecuteQuery<T>($"SELECT * FROM Accounts WHERE Id={id}").FirstOrDefault()!;
         }
 
-        public void Insert<T>(T item)
+        public void Insert<T>(T item, string table)
         {
-            var query = new StringBuilder("INSERT INTO Accounts VALUES (");
+            var query = new StringBuilder($"INSERT INTO {table} VALUES (");
 
             var type = typeof(T);
             type.GetProperties().Skip(1).ToList().ForEach(p => query.Append($"'{p.GetValue(item)}', "));

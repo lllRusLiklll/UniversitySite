@@ -174,8 +174,7 @@ namespace WebServer
             var method = FindMethods(controller.GetMethods().Where(t => t.GetCustomAttributes(true)
                 .Any(attr => attr.GetType().Name == $"Http{_httpContext.Request.HttpMethod}")),
                 methodName, methodType);
-                                                
-            
+
             if (method == null) return false;
 
             List<object> strParams;
@@ -187,6 +186,7 @@ namespace WebServer
                                             .Skip(3)
                                             .Select(s => s.Replace("/", ""))
                                             .ToList<object>();
+                    strParams.Add(request);
                     break;
                 case "POST":
                     using (var stream = new StreamReader(request.InputStream, request.ContentEncoding))
@@ -199,9 +199,7 @@ namespace WebServer
                     return false;
             }
 
-            if (method.GetParameters().Where(x => x.ParameterType == typeof(HttpListenerResponse)).Count() == 1)
-                strParams.Add(response);
-
+            strParams.Add(response);
 
             object[] queryParams = method.GetParameters()
                                 .Select((p, i) => Convert.ChangeType(strParams[i], p.ParameterType))
