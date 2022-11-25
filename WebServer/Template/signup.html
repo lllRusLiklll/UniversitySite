@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="style/style.css">
         <link rel="stylesheet" href="style/header.css">
         <link rel="stylesheet" href="style/form.css">
+        <script src="scripts/validatePassword.js"></script>
     </head>
     <body>
         <div class="top-nav"></div>
@@ -21,32 +22,33 @@
             </div>
         </div>
         <div class="form-container">
-            <form class="form" action="/students/signup" method="post">
+            <form class="form" name="signUpForm" action="/students/signup" method="post">
                 <div class="form-title">Регистрация</div>
                 <div class="form-item">
                     <div class="title">Имя *</div>
-                    <input type="text" class="form-input" autofocus name="Firstname" required>
+                    <input type="name" class="form-input" pattern="^[A-Za-z]+|[А-Яа-яЁё]+$" title="Только буквы" autofocus name="Firstname" required>
                 </div>
                 <div class="form-item">
                     <div class="title">Фамилия *</div>
-                    <input type="text" class="form-input" autofocus name="Lastname" required>
+                    <input type="text" class="form-input" pattern="^[A-Za-z]+|[А-Яа-яЁё]+$" title="Только буквы" autofocus name="Lastname" required>
                 </div>
                 <div class="form-item">
-                    <div class="title">Отчество</div>
-                    <input type="text" class="form-input" autofocus name="Patronymic">
+                    <div class="title">Отчество (при наличии)</div>
+                    <input type="text" class="form-input" pattern="^[A-Za-z]+|[А-Яа-яЁё]+$" title="Только буквы" autofocus name="Patronymic">
                 </div>
                 <div class="form-item">
                     <div class="title">Почта *</div>
-                    <input type="text" class="form-input" autofocus name="Email" required>
+                    <input type="email" class="form-input" autofocus name="Email" pattern="^.+@.+\..+[a-z]{2,4}$" title="Неверный формат почты" required>
                 </div>
                 <div class="form-item">
                     <div class="title">Пароль *</div>
-                    <input type="password" class="form-input" autofocus name="Password" required>
+                    <input type="password" class="form-input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" title="Пароль должен содержать хотя бы одну заглавную букву A-Z, хотя бы одну строчную букву a-z, хотя бы одну цифру 0-9 и быть длиной не менее 8 символов" autofocus name="Password" onchange="validatePassword();" required>
                 </div>
                 <div class="form-item">
                     <div class="title">Повторить пароль *</div>
-                    <input type="password" class="form-input" autofocus name="RepeatPassword" required>
+                    <input type="password" class="form-input" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" title="Пароль должен содержать хотя бы одну заглавную букву A-Z, хотя бы одну строчную букву a-z, хотя бы одну цифру 0-9 и быть длиной не менее 8 символов" autofocus name="RepeatPassword" onchange="validatePassword();" required>
                 </div>
+                <div id="msg">Пароли не совпадают</div>
                 <div class="form-item">
                     <div class="title">Дата рождения *</div>
                     <input type="date" class="form-input" autofocus name="BirthDate" required>

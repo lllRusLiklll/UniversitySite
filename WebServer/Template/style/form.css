@@ -40,6 +40,14 @@
     padding: 3px;
 }
 
+.form-input:valid {
+    border: 2px solid green;
+}
+
+.form-input:invalid {
+    border: 2px solid red;
+}
+
 .form-btn {
     display: flex;
     justify-content: center;
@@ -75,4 +83,13 @@
 
 .select-title {
     margin-right: 10px;
+}
+
+#msg {
+    display: none;
+    color: darkred;
+    background-color: palevioletred;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 12pt;
 }
