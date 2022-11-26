@@ -33,7 +33,7 @@ namespace WebServer
 
         public void Update(Student student)
         {
-            new MyORM(ConnectionString).Update(student);
+            new MyORM(ConnectionString).Update(student, _table);
         }
 
         public void Delete(Student student)

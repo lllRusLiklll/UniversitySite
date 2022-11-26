@@ -25,46 +25,22 @@ namespace WebServer.Controllers
         private readonly IStudentRepository _db =
             new StudentRepository(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=UniversityDB;Integrated Security=True;");
 
-        [HttpGET("list")]
-        public List<Student> GetStudents(HttpListenerRequest request, HttpListenerResponse response)
+        [HttpPOST("update")]
+        public void UpdateStudents(int studentId, string firstname, string lastname, string patronymic, string email,
+            HttpListenerResponse response)
         {
-            var cookie = request.Cookies["SessionId"];
-            if (cookie != null)
-                return _db.Query(new StudentSpecification());
-            else
-            {
-                response.StatusCode = 401;
-                return null;
-            }
+            var student = GetAccountById(studentId);
+            student.Firstname = firstname;
+            student.Lastname = lastname;
+            student.Patronymic = patronymic;
+            student.Email = email;
+            _db.Update(student);
         }
 
         [HttpGET("item")]
         public Student? GetAccountById(int id)
         {
             return _db.Query(new StudentSpecificationById(id)).FirstOrDefault();
-        }
-
-        [HttpGET("account")]
-        public Student GetAccountInfo(HttpListenerRequest request, HttpListenerResponse response)
-        {
-            var manager = SessionManager.GetInstance();
-            var cookie = request.Cookies["SessionId"];
-            if (cookie != null)
-            {
-                if (manager.CheckSession(Guid.Parse(cookie.Value)))
-                {
-                    var session = manager.GetInformation(Guid.Parse(cookie.Value));
-                    var result = _db.Query(new StudentSpecificationById(session.AccountId)).FirstOrDefault();
-                    if (result != null)
-                    {
-                        response.Redirect("../personal/account");
-                        return result;
-                    }
-                }
-            }
-            response.StatusCode = 401;
-            return null;
-
         }
 
         [HttpPOST("signup")]

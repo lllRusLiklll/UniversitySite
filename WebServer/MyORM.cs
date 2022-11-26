@@ -103,9 +103,9 @@ namespace WebServer
             ExecuteNonQuery(query.ToString());
         } 
 
-        public void Update<T>(T item)
+        public void Update<T>(T item, string table)
         {
-            var query = new StringBuilder("UPDATE Accounts SET ");
+            var query = new StringBuilder($"UPDATE {table} SET ");
 
             var type = typeof(T);
             var props = type.GetProperties();
