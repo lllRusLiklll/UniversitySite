@@ -5,18 +5,18 @@
         <title>Факультеты</title>
         <link rel="stylesheet" href="/style/style.css">
         <link rel="stylesheet" href="/style/header.css">
-        <link rel="stylesheet" href="/style/faculty.css">
     </head>
     <body>
         <div class="top-nav">
             {{ if cookie == null }}
                 <a href=login.html>Войти</a>
                 <a href=signup.html>Зарегистрироваться</a>
-            {{ endif }}</div>
+            {{ endif }}
+        </div>
         <div class=header>
             <div class=header-part>
                 <a href=schedule.html>Расписание</a>
-                <a href=teachers.html>Преподаватели</a>
+                <a href=/teachers/list>Преподаватели</a>
             </div>
             <a class=logo-div href="/"></a>
             <div class=header-part>
@@ -24,9 +24,9 @@
                 <a href=/personal/account>Личный кабинет</a>
             </div>
         </div>
-        <div class=faculty-page>
+        <div class=content-page>
             <div class="main-title">Факультеты</div>
-            <div class="faculties">
+            <div class="content-grid">
                 {{ Part }}
             </div>
         </div>

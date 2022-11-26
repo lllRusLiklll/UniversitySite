@@ -17,34 +17,28 @@
             <a class=logo-div href="/"></a>
             <div class=header-part>
                 <a href=/faculties/list>Факультеты</a>
-                <a class="focus" href=/personal/account>Личный кабинет</a>
+                <a href=/personal/account>Личный кабинет</a>
             </div>
         </div>
         <div class=account>
-            <div class=main-title>Личный кабинет студента</div>
+            <div class=main-title>Информация по преподавателю</div>
             <div class=account-info>
                 <div class="name column">
                     <div>Имя:</div>
                     <div>Фамилия:</div>
                     <div>Отчество:</div>
-                    <div>Почта:</div>
-                    <div>Пол:</div>
-                    <div>Дата рождения:</div>
-                    <div>Группа:</div>
-                    <div>Студенческий билет:</div>
+                    <div>Ученая степень:</div>
+                    <div>Предмет:</div>
                 </div>
                 <div class=column>
-                    <div>{{ Firstname }}</div>
-                    <div>{{ Lastname }}</div>
-                    <div>{{ Patronymic }}</div>
-                    <div>{{ Email }}</div>
-                    <div>{{ Gender }}</div>
-                    <div>{{ BirthDate }}</div>
-                    <div>{{ Grp }}</div>
-                    <div>{{ CreditBook }}</div>
+                    <div>{{ Teacher.Firstname }}</div>
+                    <div>{{ Teacher.Lastname }}</div>
+                    <div>{{ Teacher.Patronymic }}</div>
+                    <div>{{ Teacher.AcademicDegree }}</div>
+                    <div>{{ Subject.Name }}</div>
                 </div>
                 <div class=edit-btn>
-                    <a href="/personal/edit">Редактировать</a>
+                    <a href="/teachers/list">Назад</a>
                 </div>
             </div>
         </div> 

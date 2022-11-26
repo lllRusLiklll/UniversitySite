@@ -28,7 +28,7 @@ namespace WebServer.Controllers
             var cookie = request.Cookies["SessionId"];
             var part = new HTMLPart();
             part.Part = string.Join('\n', _db.Query(new FacultySpecification())
-                .Select(f => $"<div class=\"faculty-block\">\n<div>Факультет: <b>{f.Name}</b></div>\n<div>Кол-во учащихся: <b>{f.StudentsNumber}</b></div>\n</div>"));
+                .Select(f => $"<div class=\"content-block\">\n<div>Факультет: <b>{f.Name}</b></div>\n<div>Кол-во учащихся: <b>{f.StudentsNumber}</b></div>\n</div>"));
 
             response.ContentType = "text/html";
 

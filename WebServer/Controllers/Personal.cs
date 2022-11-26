@@ -49,6 +49,14 @@ namespace WebServer.Controllers
                     output.Close();
                 }
             }
+            else
+            {
+                response.Redirect("/login.html");
+                Stream output = response.OutputStream;
+
+                output.Close();
+            }
+                
         }
 
         [HttpGET("edit")]
@@ -92,6 +100,13 @@ namespace WebServer.Controllers
 
                     output.Close();
                 }
+            }
+            else
+            {
+                response.Redirect("/login.html");
+                Stream output = response.OutputStream;
+
+                output.Close();
             }
         }
     }
