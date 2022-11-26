@@ -37,7 +37,7 @@ namespace WebServer.Controllers
             _db.Update(student);
         }
 
-        [HttpGET("item")]
+        [HttpGET("id")]
         public Student? GetAccountById(int id)
         {
             return _db.Query(new StudentSpecificationById(id)).FirstOrDefault();

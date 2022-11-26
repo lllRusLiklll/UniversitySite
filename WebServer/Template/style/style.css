@@ -21,3 +21,9 @@ a:hover {
 .focus {
     color: orange;
 }
+
+.main-title {
+    display: flex;
+    justify-content: center;
+    font-size: 24pt;
+}
