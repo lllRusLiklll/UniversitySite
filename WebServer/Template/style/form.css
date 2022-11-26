@@ -93,3 +93,12 @@
     padding: 5px 10px;
     font-size: 12pt;
 }
+
+#warning {
+    display: none;
+    color: darkred;
+    background-color: palevioletred;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 12pt;
+}

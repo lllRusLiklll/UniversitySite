@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="style/header.css">
         <link rel="stylesheet" href="style/form.css">
         <script src="scripts/validatePassword.js"></script>
+        <script src="scripts/onSubmitSignup.js"></script>
     </head>
     <body>
         <div class="top-nav"></div>
@@ -15,15 +16,16 @@
                 <a href=schedule.html>Расписание</a>
                 <a href=teachers.html>Преподаватели</a>
             </div>
-            <a class=logo-div href="index.html"></a>
+            <a class=logo-div href="../"></a>
             <div class=header-part>
                 <a href=faculty.html>Факультеты</a>
                 <a href=account.html>Личный кабинет</a>
             </div>
         </div>
         <div class="form-container">
-            <form class="form" name="signUpForm" action="/students/signup" method="post">
+            <form class="form" name="signUpForm" onsubmit="return false;">
                 <div class="form-title">Регистрация</div>
+                <div id="warning">Пользователь с такой почтой<br>уже существует</div>
                 <div class="form-item">
                     <div class="title">Имя *</div>
                     <input type="name" class="form-input" pattern="^[A-Za-z]+|[А-Яа-яЁё]+$" title="Только буквы" autofocus name="Firstname" required>
@@ -38,7 +40,7 @@
                 </div>
                 <div class="form-item">
                     <div class="title">Почта *</div>
-                    <input type="email" class="form-input" autofocus name="Email" pattern="^.+@.+\..+[a-z]{2,4}$" title="Неверный формат почты" required>
+                    <input type="email" class="form-input" autofocus name="Email" pattern="^.+@.+\..+[a-z]{1,4}$" title="Неверный формат почты" required>
                 </div>
                 <div class="form-item">
                     <div class="title">Пароль *</div>
@@ -61,7 +63,7 @@
                     </select>
                 </div>
                 <div class="form-btn">
-                    <button class="submit-btn" type="submit">Создать</button>
+                    <button class="submit-btn" type="submit" onclick="onSubmitSignup();">Создать</button>
                 </div>
             </form>
             <a href="login.html">Войти в аккаунт</a>

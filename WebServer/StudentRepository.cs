@@ -18,32 +18,32 @@ namespace WebServer
 
     public class StudentRepository : IStudentRepository
     {
-        private readonly MyORM _orm;
+        private readonly string ConnectionString;
         private readonly string _table = "Students";
 
         public StudentRepository(string connectionString)
         {
-            _orm = new MyORM(connectionString);
+            ConnectionString = connectionString;
         }
 
         public void Insert(Student student)
         {
-            _orm.Insert(student, _table);
+            new MyORM(ConnectionString).Insert(student, _table);
         }
 
         public void Update(Student student)
         {
-            _orm.Update(student);
+            new MyORM(ConnectionString).Update(student);
         }
 
         public void Delete(Student student)
         {
-            _orm.Delete(student);
+            new MyORM(ConnectionString).Delete(student);
         }
 
         public List<Student> Query(ISqlSpecification specification)
         {
-            return _orm.ExecuteQuery<Student>("SELECT * FROM Students " + specification.ToSqlClauses()).ToList();
+            return new MyORM(ConnectionString).ExecuteQuery<Student>("SELECT * FROM Students " + specification.ToSqlClauses()).ToList();
         }
     }
 
@@ -67,6 +67,21 @@ namespace WebServer
         public string ToSqlClauses()
         {
             return $"WHERE Id={_id}";
+        }
+    }
+
+    public class StudentSpecificationByEmail : ISqlSpecification
+    {
+        private readonly string _email;
+
+        public StudentSpecificationByEmail(string email)
+        {
+            _email = email;
+        }
+
+        public string ToSqlClauses()
+        {
+            return $"WHERE Email='{_email}'";
         }
     }
 

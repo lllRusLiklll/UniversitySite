@@ -93,7 +93,7 @@ namespace WebServer
 
         public void Insert<T>(T item, string table)
         {
-            var query = new StringBuilder($"INSERT INTO {table} VALUES (");
+            var query = new StringBuilder($"INSERT INTO {table} (Firstname, Lastname, Patronymic, Gender, BirthDate, Email, Password, Grp, CreditBook) VALUES (");
 
             var type = typeof(T);
             type.GetProperties().Skip(1).ToList().ForEach(p => query.Append($"'{p.GetValue(item)}', "));

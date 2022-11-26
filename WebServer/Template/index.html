@@ -8,15 +8,17 @@
     </head>
     <body>
         <div class=top-nav>
-            <a href=login.html>Войти</a>
-            <a href=signup.html>Зарегистрироваться</a>
+            {{ if cookie == null }}
+                <a href=login.html>Войти</a>
+                <a href=signup.html>Зарегистрироваться</a>
+            {{ endif }}
         </div>
         <div class=header>
             <div class=header-part>
                 <a href=schedule.html>Расписание</a>
                 <a href=teachers.html>Преподаватели</a>
             </div>
-            <a class=logo-div href="index.html"></a>
+            <a class=logo-div href="../"></a>
             <div class=header-part>
                 <a href=faculty.html>Факультеты</a>
                 <a href=account.html>Личный кабинет</a>

@@ -13,10 +13,10 @@ namespace WebServer
             _cache = new MemoryCache(new MemoryCacheOptions());
         }
 
-        public void CreateSession(Session session)
+        public void CreateSession(Session session, int seconds)
         {
             var cacheEntryOptions = new MemoryCacheEntryOptions()
-                .SetSlidingExpiration(TimeSpan.FromSeconds(120));
+                .SetSlidingExpiration(TimeSpan.FromSeconds(seconds));
             _cache.Set(session.Id, session, cacheEntryOptions);
         }
 

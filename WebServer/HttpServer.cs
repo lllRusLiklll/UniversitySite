@@ -5,6 +5,8 @@ using System.Text;
 using System.Text.Json;
 using WebServer.Attributes;
 using WebServer.Controllers;
+using HTMLEngineLibrary;
+using System.Web;
 
 namespace WebServer
 {
@@ -76,7 +78,7 @@ namespace WebServer
                     if (Directory.Exists(_settings.Path))
                     {
                         var rawUrl = httpContext.Request.RawUrl.Replace("%20", " ");
-                        buffer = GetFile(rawUrl, response);
+                        buffer = GetFile(rawUrl, httpContext.Request, response);
 
                         if (buffer == null)
                         {
@@ -122,10 +124,12 @@ namespace WebServer
             }
          }
 
-        private byte[] GetFile(string rawUrl, HttpListenerResponse response)
+        private byte[] GetFile(string rawUrl, HttpListenerRequest request, HttpListenerResponse response)
         {
             byte[] buffer = null;
             var filePath = _settings.Path + rawUrl;
+            var httpEngine = new EngineHTMLService();
+            var cookie = request.Cookies["SessionId"];
 
             if (Directory.Exists(filePath))
             {
@@ -133,7 +137,7 @@ namespace WebServer
                 if (File.Exists(filePath))
                 {
                     response.Headers.Set("Content-Type", "text/html");
-                    buffer = File.ReadAllBytes(filePath);
+                    buffer = httpEngine.GetHTMLInByte(File.ReadAllBytes(filePath), Tuple.Create("cookie", cookie));
                 }
             }
             else if (File.Exists(filePath))
@@ -185,6 +189,7 @@ namespace WebServer
                                             .Segments
                                             .Skip(3)
                                             .Select(s => s.Replace("/", ""))
+                                            .Select(s => WebUtility.UrlDecode(s))
                                             .ToList<object>();
                     strParams.Add(request);
                     break;
@@ -192,7 +197,8 @@ namespace WebServer
                     using (var stream = new StreamReader(request.InputStream, request.ContentEncoding))
                     {
                         var query = stream.ReadToEnd();
-                        strParams = query.Split('&').Select(x => x.Split('=')[1]).ToList<object>();
+                        strParams = query.Split('&').Select(x => x.Split('=')[1])
+                            .Select(s => WebUtility.UrlDecode(s)).ToList<object>();
                     }
                     break;
                 default:

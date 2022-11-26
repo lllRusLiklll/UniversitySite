@@ -1,6 +1,7 @@
 ﻿using WebServer.Attributes;
 using System.Net;
 using System.Text;
+using System.Web;
 
 namespace WebServer.Controllers
 {
@@ -14,7 +15,7 @@ namespace WebServer.Controllers
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string Group { get; set; }
+        public string Grp { get; set; }
         public int CreditBook { get; set; }
     }
 
@@ -64,44 +65,56 @@ namespace WebServer.Controllers
         }
 
         [HttpPOST("signup")]
-        public void SaveStudent(string firstname, string lastname, string patronymic, string email,
+        public bool SaveStudent(string firstname, string lastname, string patronymic, string email,
             string password, string repeatPassword, DateTime birthdate, string gender, HttpListenerResponse response)
         {
-            _db.Insert(new Student() 
+            var student = _db.Query(new StudentSpecificationByEmail(email));
+            if (student.Count == 0)
             {
-                Firstname = firstname,
-                Lastname = lastname,
-                Patronymic = patronymic,
-                Gender = gender,
-                BirthDate = birthdate,
-                Email = email,
-                Group = "11-106",
-                CreditBook = 123456789
-            });
-            response.Redirect("login.html");
+                _db.Insert(new Student()
+                {
+                    Firstname = firstname,
+                    Lastname = lastname,
+                    Patronymic = patronymic,
+                    Gender = gender,
+                    BirthDate = birthdate,
+                    Email = email,
+                    Password = password,
+                    Grp = "11-106",
+                    CreditBook = 123456780
+                });
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        [HttpPOST("login")]
-        public bool login(string email, string password, HttpListenerResponse response)
+        [HttpGET("login")]
+        public bool Login(string email, string password, bool isRemember, HttpListenerRequest request, HttpListenerResponse response)
         {
-            var student = _db.Query(new StudentSpecificationByEmailPassword(email, password)).First();
-            if (true)
+            var student = _db.Query(new StudentSpecificationByEmailPassword(email, password));
+            if (student.Count == 1)
             {
                 var sessionId = Guid.NewGuid();
-                response.Headers.Set("Set-Cookie", $"SessionId={sessionId}; Path=/");
+                if (isRemember)
+                    response.Headers.Set("Set-Cookie", $"SessionId={sessionId}; Path=/; Max-Age=604800") ;
+                else
+                    response.Headers.Set("Set-Cookie", $"SessionId={sessionId}; Path=/;");
 
                 var manager = SessionManager.GetInstance();
                 var session = new Session()
                 {
                     Id = sessionId,
-                    AccountId = student.StudentId,
-                    Email = student.Email,
+                    AccountId = student.First().StudentId,
+                    Email = student.First().Email,
                     CreatedDateTime = DateTime.Now,
                 };
-                manager.CreateSession(session);
-
+                manager.CreateSession(session, isRemember ? 604800 : 300);
                 return true;
             }
+
             return false;
         }
     }
