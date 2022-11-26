@@ -44,7 +44,7 @@ namespace WebServer.Controllers
             return _db.Query(new StudentSpecificationById(id)).FirstOrDefault();
         }
 
-        [HttpGET("info")]
+        [HttpGET("account")]
         public Student GetAccountInfo(HttpListenerRequest request, HttpListenerResponse response)
         {
             var manager = SessionManager.GetInstance();
@@ -56,7 +56,10 @@ namespace WebServer.Controllers
                     var session = manager.GetInformation(Guid.Parse(cookie.Value));
                     var result = _db.Query(new StudentSpecificationById(session.AccountId)).FirstOrDefault();
                     if (result != null)
+                    {
+                        response.Redirect("../personal/account");
                         return result;
+                    }
                 }
             }
             response.StatusCode = 401;

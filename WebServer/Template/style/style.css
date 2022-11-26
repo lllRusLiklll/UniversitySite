@@ -17,3 +17,7 @@ a:hover {
     height: 200px;
     width: 100%;
 }
+
+.focus {
+    color: orange;
+}

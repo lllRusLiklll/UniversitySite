@@ -213,15 +213,18 @@ namespace WebServer
 
             var ret = method.Invoke(Activator.CreateInstance(controller), queryParams);
 
-            response.ContentType = "Application/json";
+            if (controller.GetInterfaces().FirstOrDefault() == null)
+            {
+                response.ContentType = "Application/json";
 
-            byte[] buffer = Encoding.ASCII.GetBytes(JsonSerializer.Serialize(ret));
-            response.ContentLength64 = buffer.Length;
+                byte[] buffer = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(ret));
+                response.ContentLength64 = buffer.Length;
 
-            Stream output = response.OutputStream;
-            output.Write(buffer, 0, buffer.Length);
+                Stream output = response.OutputStream;
+                output.Write(buffer, 0, buffer.Length);
 
-            output.Close();
+                output.Close();
+            }
 
             return true;
         }

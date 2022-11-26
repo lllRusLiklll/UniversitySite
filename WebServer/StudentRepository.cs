@@ -66,7 +66,7 @@ namespace WebServer
 
         public string ToSqlClauses()
         {
-            return $"WHERE Id={_id}";
+            return $"WHERE StudentId={_id}";
         }
     }
 

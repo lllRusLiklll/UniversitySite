@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">    
+        <title>Регистрация</title>
+        <link rel="stylesheet" href="/style/style.css">
+        <link rel="stylesheet" href="/style/header.css">
+        <link rel="stylesheet" href="/style/form.css">
+        <link rel="stylesheet" href="/style/account.css">
+    </head>
+    <body>
+        <div class="top-nav"></div>
+        <div class=header>
+            <div class=header-part>
+                <a href=schedule.html>Расписание</a>
+                <a href=teachers.html>Преподаватели</a>
+            </div>
+            <a class=logo-div href="/"></a>
+            <div class=header-part>
+                <a href=faculty.html>Факультеты</a>
+                <a class="focus" href=/personal/account>Личный кабинет</a>
+            </div>
+        </div>
+        <div class=account>
+            <div class=account-title>Личный кабинет студента</div>
+            <div class=account-info>
+                <div class="name column">
+                    <div>Имя:</div>
+                    <div>Фамилия:</div>
+                    <div>Отчество:</div>
+                    <div>Почта:</div>
+                    <div>Пол:</div>
+                    <div>Дата рождения:</div>
+                    <div>Группа:</div>
+                    <div>Студенческий билет:</div>
+                </div>
+                <div class=column>
+                    <div>{{ Firstname }}</div>
+                    <div>{{ Lastname }}</div>
+                    <div>{{ Patronymic }}</div>
+                    <div>{{ Email }}</div>
+                    <div>{{ Gender }}</div>
+                    <div>{{ BirthDate }}</div>
+                    <div>{{ Grp }}</div>
+                    <div>{{ CreditBook }}</div>
+                </div>
+                <div class=edit-btn>
+                    <a href="/personal/edit">Редактировать</a>
+                </div>
+            </div>
+        </div> 
+    </body>
+</html>
