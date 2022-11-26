@@ -50,3 +50,15 @@ a:hover {
     border: 2px solid midnightblue;
     border-radius: 5px;
 }
+
+.logo-div {
+    display: flex;
+    justify-content: center;
+}
+
+.big-title {
+    font-size: 40pt;
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
